@@ -46,18 +46,18 @@ const getSessionTimeBadge = (startsAt: string, endsAt: string) => {
   }
 };
 
-const getApprovalStatusBadge = (status: string) => {
-  switch (status) {
-    case "pending":
-      return <Badge bg="warning">Pending Review</Badge>;
-    case "approved":
-      return <Badge bg="success">Approved</Badge>;
-    case "rejected":
-      return <Badge bg="danger">Rejected</Badge>;
-    default:
-      return <Badge bg="secondary">Unknown</Badge>;
-  }
-};
+// const getApprovalStatusBadge = (status: string) => {
+//   switch (status) {
+//     case "pending":
+//       return <Badge bg="warning">Pending Review</Badge>;
+//     case "approved":
+//       return <Badge bg="success">Approved</Badge>;
+//     case "rejected":
+//       return <Badge bg="danger">Rejected</Badge>;
+//     default:
+//       return <Badge bg="secondary">Unknown</Badge>;
+//   }
+// };
 
 const Sessions = () => {
   const { conferences, isLoading, error, loadConferences } = useConference();

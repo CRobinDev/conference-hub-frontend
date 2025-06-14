@@ -8,7 +8,7 @@ import {
   Button,
   Alert,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/auth/AuthProvider";
 import { Conference, ApiError, ConferenceStatus } from "../types";
 import { formatDate } from "../utils/date";
@@ -20,7 +20,6 @@ const MyProposals = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [dataFetched, setDataFetched] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProposals = async () => {

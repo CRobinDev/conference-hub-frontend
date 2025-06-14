@@ -9,7 +9,6 @@ import {
   Alert,
 } from "react-bootstrap";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../contexts/auth/AuthProvider";
 import { useConference } from "../contexts/conference/ConferenceProvider";
 import { Conference, ApiError } from "../types";
 import { formatDate } from "../utils/date";
@@ -17,7 +16,6 @@ import { formatDate } from "../utils/date";
 const ProposalDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { getConference, deleteConference } = useConference();
 
   const [proposal, setProposal] = useState<Conference | null>(null);

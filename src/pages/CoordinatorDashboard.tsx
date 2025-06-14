@@ -230,12 +230,7 @@ const CoordinatorDashboard = () => {
         return <Badge bg="secondary">Unknown</Badge>;
     }
   };
-
-  const formatDateTime = (isoString: string) => {
-    const date = new Date(isoString);
-    return date.toLocaleString();
-  };
-
+  
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString();

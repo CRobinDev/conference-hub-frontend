@@ -12,6 +12,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useConference } from "../contexts/conference/ConferenceProvider";
 import { Conference, UpdateConferenceRequest, ApiError } from "../types";
 import { useAuth } from "../contexts/auth/AuthProvider";
+import { Link } from "react-router-dom";
 
 const EditSession = () => {
   const { id } = useParams<{ id: string }>();

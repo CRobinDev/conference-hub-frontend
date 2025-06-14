@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -15,7 +15,7 @@ import { Conference, UpdateConferenceRequest, ApiError } from "../types";
 const EditProposal = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getConference, updateConference, isLoading, error } = useConference();
+  const { getConference, updateConference, error } = useConference();
 
   const [conference, setConference] = useState<Conference | null>(null);
   const [formData, setFormData] = useState<UpdateConferenceRequest>({});

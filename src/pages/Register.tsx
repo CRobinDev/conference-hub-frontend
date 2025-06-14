@@ -55,13 +55,36 @@ const Register = () => {
     }
   };
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const ubEmailRegex = /^[a-zA-Z0-9._%+-]+@ub\.ac\.id$/;
+    
+    if (!email.trim()) {
+      return "Email is required";
+    }
+    
+    if (!emailRegex.test(email)) {
+      return "Email format is invalid";
+    }
+    
+    if (!ubEmailRegex.test(email)) {
+      return "Only UB.AC.ID email addresses are allowed";
+    }
+    
+    return null;
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!isEmailVerified) newErrors.email = "Email verification is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Email is invalid";
+    
+    if (!isEmailVerified) {
+      newErrors.email = "Email verification is required";
+    } else {
+      const emailError = validateEmail(formData.email);
+      if (emailError) newErrors.email = emailError;
+    }
 
     if (!formData.password) newErrors.password = "Password is required";
     else if (formData.password.length < 8)
@@ -75,14 +98,14 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const validateEmail = () => {
-    if (!formData.email.trim()) {
-      setErrors((prev) => ({ ...prev, email: "Email is required" }));
-      return false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      setErrors((prev) => ({ ...prev, email: "Email is invalid" }));
+  const validateEmailField = () => {
+    const emailError = validateEmail(formData.email);
+    
+    if (emailError) {
+      setErrors((prev) => ({ ...prev, email: emailError }));
       return false;
     }
+    
     setErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors.email;
@@ -94,7 +117,7 @@ const Register = () => {
   const handleSendVerification = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!validateEmail()) return;
+    if (!validateEmailField()) return;
 
     try {
       setIsVerifying(true);

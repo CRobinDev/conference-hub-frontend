@@ -17,6 +17,7 @@ import { useRegistration } from "../contexts/registration/RegistrationProvider";
 import { conferenceService } from "../services/conference.service";
 import { feedbackService } from "../services/feedback.service";
 import { Conference, Feedback } from "../types";
+import { registrationService } from "../services/registration.service";
 
 const SessionDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -56,21 +57,20 @@ const SessionDetails = () => {
         const conferenceData = await conferenceService.getConference(id);
         setConference(conferenceData);
 
-        if (user) {
-          try {
-            const registrations =
-              await registrationService.getRegisteredConferences(user.id, {
-                limit: 20,
-                include_past: true,
-              });
-            const isUserRegistered = registrations.conferences.some(
-              (conf) => conf.id === id
-            );
-            setIsRegistered(isUserRegistered);
-          } catch (err) {
-            console.error("Error checking registration status:", err);
-          }
+       if (user && user.id) {
+        try {
+          const registrations = await registrationService.getRegisteredConferences(user.id, {
+            limit: 20,
+            include_past: true,
+          });
+          const isUserRegistered = registrations.conferences.some(
+            (conf: { id: string }) => conf.id === id
+          );
+          setIsRegistered(isUserRegistered);
+        } catch (err) {
+          console.error("Error checking registration status:", err);
         }
+      }
 
         try {
           setIsLoadingFeedback(true);
@@ -241,7 +241,6 @@ const SessionDetails = () => {
   }
 
   const sessionHasEnded = hasConferenceEnded(conference.ends_at);
-  const canSubmitFeedback = sessionHasEnded && isRegistered && !userFeedback;
 
   return (
     <Container className="py-4">

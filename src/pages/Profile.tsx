@@ -1,25 +1,10 @@
 import { Container, Row, Col, Card, Button, ListGroup } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/auth/AuthProvider";
-import { useEffect, useState } from "react";
-import { useRegistration } from "../contexts/registration/RegistrationProvider";
+
 
 const Profile = () => {
   const { user, isLoading } = useAuth();
-  const navigate = useNavigate();
-  const { getRegisteredConferences, isLoading: isLoadingRegistrations } =
-    useRegistration();
-  const [attendedCount, setAttendedCount] = useState(0);
-  const [proposalCount, setProposalCount] = useState(0);
-  const [feedbackCount, setFeedbackCount] = useState(0);
-
-  useEffect(() => {
-    if (user) {
-      setAttendedCount(5);
-      setProposalCount(2);
-      setFeedbackCount(3);
-    }
-  }, [user]);
 
   if (isLoading) {
     return <div className="text-center py-4">Loading...</div>;
