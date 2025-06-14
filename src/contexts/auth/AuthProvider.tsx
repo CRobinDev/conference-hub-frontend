@@ -5,12 +5,9 @@ import {
   User,
   LoginRequest,
   RegisterRequest,
-  RegisterOTPRequest,
-  CheckOTPRequest,
-  ResetPasswordOTPRequest,
   ResetPasswordRequest,
 } from "../../types";
-import { getAccessToken, isAuthenticated } from "../../utils/storage";
+import { isAuthenticated } from "../../utils/storage";
 
 interface AuthContextType {
   user: User | null;

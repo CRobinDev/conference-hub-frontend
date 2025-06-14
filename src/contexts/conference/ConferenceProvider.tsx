@@ -11,7 +11,6 @@ import {
   CreateConferenceRequest,
   UpdateConferenceRequest,
   UpdateConferenceStatusRequest,
-  ConferenceStatus,
   Pagination,
   ConferenceQueryParams,
 } from "../../types";
